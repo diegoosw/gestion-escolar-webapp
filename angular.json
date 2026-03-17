@@ -28,7 +28,8 @@
                 "glob": "**/*",
                 "input": "/src/assets",
                 "output": "/assets"
-              }
+              },
+              "src/assets"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -93,7 +94,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss","node_modules/bootstrap/dist/css/bootstrap.min.css",

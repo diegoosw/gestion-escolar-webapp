@@ -1,1 +1,38 @@
-<p>registro-usuarios-screen works!</p>
+<div class="wrapper">
+    <div class="reg-shell">
+        <!-- seleccion de tipo de usuario -->
+         <mat-card class="role-card">
+            <mat-card-header class="role-card-header">
+                <div class="actions-header-column">
+                    @if {
+
+                    } @else {
+
+                    }
+
+                    <!-- botón para regresar al login -->
+                    <button mat-icon-button class="back-btn" (click)="goBack()">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- agregamos la sección de los radio buttons para seleccionar el tipo de usuario -->
+                <div class="role-row">
+                    <mat-radio-group aria-label="Tipo de usuario" [(ngMModel)]="user.tipo_usuario" (change)="radioChange($event)">
+                        <!-- radio button para seleccionar el tipo de usuario: administrador -->
+                        @if(!authService.getUserGroup() || authService.getUserGroup() === 'administrador') {
+                            <mat-radio-button class="role-option" value="administrador">
+                                <mat-icon class="role-icon">admin_panel_settings</mat-icon>
+                                <span class="text-radio">Administrador</span>
+                        <!-- radio button para seleccionar el tipo de usuario: alumnos -->
+                        <!-- radio button para seleccionar el tipo de usuario: maestros -->
+                    </mat-radio-group>
+                 </div>
+            </mat-card-content>
+         </mat-card>
+
+         <!-- aqui se mostrará el formulario dependiendo del tipo de usuario seleccionado -->
+          
+    </div>
+</div>

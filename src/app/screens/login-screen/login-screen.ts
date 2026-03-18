@@ -32,8 +32,10 @@ export class LoginScreen implements OnInit {/* usar ctrl + . para buscar ayuda e
   }
 
   public registrar(){
-
+    this.router.navigate(['registro-usuarios']);//IMPORTANTE SINTAXIS EXAMEN, esto es como un href pero con el router de angular, es decir, no recarga la página, solo cambia la vista
+    
   }
+  
 
   public showPassword(){
     

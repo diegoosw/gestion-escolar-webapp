@@ -2,28 +2,28 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
 
-
 /* =========================
-  Router
+   Router
    ========================= */
-
 import { RouterModule } from '@angular/router';
-/* elementos de angular material */
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
 
+/*Elementos de angular material*/
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
 
 /**
-* SHARED_IMPORTS
-* ---------------------------------------------------------
-* Colección de módulos/directivas reutilizables en
-* componentes standalone.
-*
-* Se importa así:
-* imports: [...SHARED_IMPORTS, HeaderApp, FooterApp]
-*/
+ * SHARED_IMPORTS
+ * ---------------------------------------------------------
+ * Colección de módulos/directivas reutilizables en
+ * componentes standalone.
+ *
+ * Se importa así:
+ * imports: [...SHARED_IMPORTS, HeaderApp, FooterApp]
+ */
 
 export const SHARED_IMPORTS = [
   CommonModule,
@@ -32,8 +32,9 @@ export const SHARED_IMPORTS = [
   NgOptimizedImage,
   RouterModule,
   MatButtonModule,
-  MatDividerModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
   MatIconModule,
-  MatCardModule
-
+  MatRadioModule
 ];

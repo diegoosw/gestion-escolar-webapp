@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-registro-admin',
@@ -7,7 +7,8 @@ import { Component, Input, input } from '@angular/core';
   styleUrl: './registro-admin.scss',
 })
 export class RegistroAdmin {
+
   @Input() rol:string = "";
   @Input() datos_user:any = {};
-  
+
 }

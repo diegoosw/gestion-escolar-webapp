@@ -3,7 +3,7 @@
     <!-- Section Left: Form -->
     <div class="login-form-section">
       <div class="login-brand">
-        <img src="assets/images/escudoB.png" alt="Logo BUAP" class="logo-buap" />
+        <img src="/assets/images/escudoB.png" alt="Logo BUAP" class="logo-buap" />
         <span class="brand-title">Sistema Escolar</span>
       </div>
       <h2 class="login-title">Iniciar sesión</h2>
@@ -15,7 +15,9 @@
           <label for="email">Correo electrónico</label>
           <input type="email" [(ngModel)]="username" name="username" class="form-control" id="email"
             placeholder="nombre@correo.com" autocomplete="username" />
-          <div *ngIf="errors.username" class="invalid-feedback">{{ errors.username }}</div>
+          @if (errors.username) {
+            <div class="invalid-feedback">{{ errors.username }}</div>
+          }
         </div>
         <!-- Campo para la contraseña -->
         <div class="form-group">
@@ -29,7 +31,9 @@
               <i [ngClass]="type == 'password' ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
             </span>
           </div>
-          <div *ngIf="errors.password" class="invalid-feedback">{{ errors.password }}</div>
+          @if (errors.password) {
+            <div class="invalid-feedback">{{ errors.password }}</div>
+          }
         </div>
         <!-- Se agrega el label de olvidé mi contraseña -->
         <div class="form-links">
@@ -48,7 +52,7 @@
         <h2>¡Bienvenido de nuevo!</h2>
         <p>Nos alegra verte otra vez</p>
       </div>
-      <img src="assets/images/buap-fcc.jpg" alt="Ilustración bienvenida" class="login-illustration" />
+      <img src="/assets/images/buap-fcc.jpg" alt="Ilustración bienvenida" class="login-illustration" />
     </div>
   </div>
 </section>

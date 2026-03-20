@@ -7,7 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './registro-maestros.scss',
 })
 export class RegistroMaestros {
+
   @Input() rol:string = "";
   @Input() datos_user:any = {};
-  
+
 }

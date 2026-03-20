@@ -1,44 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import {SHARED_IMPORTS} from '../../shared/shared.imports';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatIconModule} from '@angular/material/icon';
+import { SHARED_IMPORTS } from '../../shared/shared.imports';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-screen',
-  imports: [...SHARED_IMPORTS, MatButtonModule, MatDividerModule, MatIconModule],
+  imports: [
+    ...SHARED_IMPORTS
+  ],
   templateUrl: './login-screen.html',
   styleUrl: './login-screen.scss',
 })
-export class LoginScreen implements OnInit {/* usar ctrl + . para buscar ayuda en los errores */
-  /* aquí van las variables globales */
+export class LoginScreen implements OnInit {
+
+  // Aquí van las variables globales
   public username: string = '';
   public password: string = '';
   public load: boolean = false;
-  public errors: any={};
-  public type: string = 'password';
-
+  public errors: any = {};
+  public type: string = "password";
 
   constructor(
-    public router: Router/* ctrl + . para agregar la importación con ayuda */
+    public router: Router
   ) { }
 
   ngOnInit() {
+
   }
 
   public login(){
 
   }
 
-  public registrar(){
-    this.router.navigate(['registro-usuarios']);//IMPORTANTE SINTAXIS EXAMEN, esto es como un href pero con el router de angular, es decir, no recarga la página, solo cambia la vista
-    
+  public registrar() {
+    this.router.navigate(['registro-usuarios']);
   }
-  
 
-  public showPassword(){
-    
+  public showPassword() {
+
   }
 
 }

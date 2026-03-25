@@ -1,2 +1,118 @@
-<p>registro-maestros works!</p>
-<p>HOLA PAPUS</p>
+<!-- formulario de registro para administradores -->
+<div class="wrapper">
+    <div class="section-registro">
+        <div class="body-registro">
+            <div class="row mt-3 mb-3">
+                <div class="form-group" col-12>
+                    <label for="tipo_usuario" class="title-user">INgresa los datos del administrador</label>
+                </div>
+            </div>
+            <!-- aquí empiezan los datos del formulario -->
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>ID Administrador</mat-label>
+                <input matInput [(ngModel)]="admin.clave_admin" name="id" placeholder="Ingrese el ID del administrador">
+
+            </mat-form-field>
+            @ngIf (errors.clave_admin) {
+                <div class="invalid-feedback">{{ errors.clave_admin }}</div>
+            }
+
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput [(ngModel)]="admin.first_name" name="first_name" placeholder="Ingrese el nombre del administrador">
+
+            </mat-form-field>
+            @ngIf (errors.first_name) {
+                <div class="invalid-feedback">{{ errors.first_name }}</div>
+            }
+
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Apellido</mat-label>
+                <input matInput [(ngModel)]="admin.last_name" name="last_name" placeholder="Ingrese el apellido del administrador">
+
+            </mat-form-field>
+            @ngIf (errors.last_name) {
+                <div class="invalid-feedback">{{ errors.last_name }}</div>
+            }
+
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Correo Electrónico</mat-label>
+                <input matInput [(ngModel)]="admin.email" name="email" placeholder="Ingrese el correo electrónico del administrador">
+
+            </mat-form-field>
+            @ngIf (errors.email) {
+                <div class="invalid-feedback">{{ errors.email }}</div>
+            }
+
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [(ngModel)]="admin.password" name="password" type="inputType_1" placeholder="Ingrese la contraseña del administrador">
+                <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+            @ngIf (errors.password) {
+                <div class="invalid-feedback">{{ errors.password }}</div>
+            }
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input matInput [(ngModel)]="admin.confirm_password" name="confirm_password" type="inputType_1" placeholder="Ingrese la contraseña del administrador">
+                <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+            @ngIf (errors.confirm_password) {
+                <div class="invalid-feedback">{{ errors.confirm_password }}</div>
+            }
+        
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input matInput [(ngModel)]="admin.telefono" name="telefono" mask="000-000-0000" placeholder="Ingrese el teléfono del administrador">
+
+            </mat-form-field>
+            @ngIf (errors.telefono) {
+                <div class="invalid-feedback">{{ errors.telefono }}</div>
+            }
+
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>RFC</mat-label>
+                <input matInput [(ngModel)]="admin.rfc" name="rfc" minlength="12" maxlength="13" placeholder="Ingrese el RFC del administrador">
+                <mat-hint align="end">{{admin.rfc.length || 0}}/13</mat-hint>
+
+            </mat-form-field>
+            @ngIf (errors.rfc) {
+                <div class="invalid-feedback">{{ errors.rfc }}</div>
+            }
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Edad</mat-label>
+                <input matInput [(ngModel)]="admin.edad" name="edad" mask="00" placeholder="Ingrese la edad del administrador">
+
+            </mat-form-field>
+            @ngIf (errors.edad) {
+                <div class="invalid-feedback">{{ errors.edad }}</div>
+            }
+
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Ocupación</mat-label>
+                <input matInput [(ngModel)]="admin.ocupacion" name="ocupacion" placeholder="Ingrese la ocupación del administrador">
+
+            </mat-form-field>
+            @ngIf (errors.ocupacion) {
+                <div class="invalid-feedback">{{ errors.ocupacion }}</div>
+            }
+
+            <!-- en esta clase se definen los botones para guardar o actualizar el registro -->
+            <div class="section-buttons">
+                <button class="btn btn-danger" type="submit" (click)="regresar()">Regresar</button>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>

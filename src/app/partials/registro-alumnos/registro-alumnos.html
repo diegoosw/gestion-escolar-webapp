@@ -1,4 +1,129 @@
+<!-- Formulario de registro para alumnos -->
+<div class="wrapper">
+  <div class="section-registro">
+    <div class="body-registro">
+      <div class="row mt-3 mb-3">
+        <div class="form-group col-12">
+          <label class="title-user" for="tipo_usuario">Ingresa los datos del alumno</label>
+        </div>
+      </div>
+      <!-- Aquí empiezan los campos del formulario -->
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Matrícula</mat-label>
+        <input matInput [(ngModel)]="alumno.id_trabajador" name="id_alumno" placeholder="Escribe la matrícula del alumno">
+      </mat-form-field>
+      @if (errors.matricula) {
+        <div class="invalid-feedback">{{ errors.matricula }}</div>
+      }
 
-<div class="container">
-  <h1>Luis Yael</h1>
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="alumno.first_name" name="first_name" placeholder="Escribe nombre del alumno">
+      </mat-form-field>
+      @if (errors.first_name) {
+        <div class="invalid-feedback">{{ errors.first_name }}</div>
+      }
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Apellidos</mat-label>
+        <input matInput [(ngModel)]="alumno.last_name" name="last_name" placeholder="Escribe apellidos del alumno">
+      </mat-form-field>
+      @if (errors.last_name) {
+        <div class="invalid-feedback">{{ errors.last_name }}</div>
+      }
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput [(ngModel)]="alumno.email" name="email" placeholder="Escribe el correo electrónico">
+      </mat-form-field>
+      @if (errors.email) {
+        <div class="invalid-feedback">{{ errors.email }}</div>
+      }
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [(ngModel)]="alumno.password" name="password" [type]="inputType_1" placeholder="Escribe contraseña del alumno">
+        <mat-icon matSuffix class="eye-icon" (click)="showPassword()">{{hide_1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+      @if (errors.password) {
+        <div class="invalid-feedback">{{ errors.password }}</div>
+      }
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input matInput [(ngModel)]="alumno.confirmar_password" name="confirmar_password" [type]="inputType_2" placeholder="Confirma contraseña">
+        <mat-icon matSuffix class="eye-icon" (click)="showPwdConfirmar()">{{hide_2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+      @if (errors.confirmar_password) {
+        <div class="invalid-feedback">{{ errors.confirmar_password }}</div>
+      }
+
+      <!-- Campo para la fecha de nacimiento del alumno -->
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="alumno.fecha_nacimiento" (focus)="picker.open()" placeholder="Elegir fecha de nacimiento" (dateChange)="changeFecha($event)" type="text">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>CURP</mat-label>
+        <input matInput minlength="17" maxlength="18" [(ngModel)]="alumno.curp" name="curp" placeholder="Escribe CURP del alumno">
+        <mat-hint align="end">{{alumno.curp?.length || 0}}/18</mat-hint>
+      </mat-form-field>
+      @if (errors.curp) {
+        <div class="invalid-feedback">{{ errors.curp }}</div>
+      }
+
+      
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>RFC</mat-label>
+        <input matInput minlength="12" maxlength="13" [(ngModel)]="alumno.rfc" name="rfc" placeholder="Escribe RFC del alumno">
+        <mat-hint align="end">{{alumno.rfc?.length || 0}}/13</mat-hint>
+      </mat-form-field>
+      @if (errors.rfc) {
+        <div class="invalid-feedback">{{ errors.rfc }}</div>
+      }
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Edad</mat-label>
+        <input matInput [(ngModel)]="alumno.edad" mask="00" name="edad" placeholder="Escribe edad del alumno">
+      </mat-form-field>
+      @if (errors.edad) {
+        <div class="invalid-feedback">{{ errors.edad }}</div>
+      }
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [(ngModel)]="alumno.telefono" mask="000-000-0000" name="telefono" placeholder="Escribe teléfono del alumno">
+      </mat-form-field>
+      @if (errors.telefono) {
+        <div class="invalid-feedback">{{ errors.telefono }}</div>
+      }
+
+      
+
+      
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Ocupación</mat-label>
+        <input matInput [(ngModel)]="alumno.ocupacion" name="ocupacion" placeholder="Escribe ocupación del alumno">
+      </mat-form-field>
+      @if (errors.ocupacion) {
+        <div class="invalid-feedback">{{ errors.ocupacion }}</div>
+      }
+
+      
+      <!-- En esta clase se definen los botones para guardar o actualizar el registro -->
+      <div class="section-buttons">
+        <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+        @if(!editar){
+          <button class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+        }@else{
+          <button class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+        }
+      </div>
+    </div>
+  </div>
 </div>

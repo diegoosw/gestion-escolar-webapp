@@ -18,7 +18,7 @@ export class RegistroMaestros implements OnInit {
   @Input() rol:string = "";
   @Input() datos_user:any = {};
 
-  public maestro: any = {};
+  public maestro: any = { materias_array: []};
   public errors: any = {};
   public editar:boolean = false;
   public idUser: number = 0;
@@ -59,6 +59,10 @@ export class RegistroMaestros implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Inicializamos el objeto con todos los campos necesarios vacíos
+    this.maestro = this.maestrosService.esquemaMaestro();
+    // Asignamos el rol fijo para este formulario
+    this.maestro.rol = "maestro";
   }
 
   //Funciones para password
@@ -105,7 +109,23 @@ export class RegistroMaestros implements OnInit {
 
     // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
     if(this.maestro.password === this.maestro.confirmar_password){
+
+
       // TODO: Aquí iría la lógica para registrar al maestro, como llamar a un servicio que se encargue de hacer la petición al backend
+      // Si no hay errores de validación, procedemos a registrar al admin
+      this.maestrosService.registrarMaestro(this.maestro).subscribe({
+        next: (response) => {
+          this.notificationService.success("Maestro registrado exitosamente");
+          console.log(response);
+          //Si se registra correctamente, redirigimos al login
+          this.router.navigate(['']);
+        },
+        error: (error) => {
+          console.error("Error al registrar Maestro: ", error);
+          this.notificationService.error("Error al registrar Maestro");
+        }
+      });
+      //
     }else{
       this.notificationService.error("Las contraseñas no coinciden");
       this.maestro.password="";
@@ -126,19 +146,19 @@ export class RegistroMaestros implements OnInit {
   // Funciones para los checkbox
   public checkboxChange(event:any){
     if(event.checked){
-      this.maestro.materias_json.push(event.source.value)
+      this.maestro.materias_array.push(event.source.value)
     }else{
-      this.maestro.materias_json.forEach((materia: any, i: any) => {
+      this.maestro.materias_array.forEach((materia: any, i: any) => {
         if(materia === event.source.value){
-          this.maestro.materias_json.splice(i,1)
+          this.maestro.materias_array.splice(i,1)
         }
       });
     }
   }
 
   public revisarSeleccion(nombre: string){
-    if(this.maestro.materias_json){
-      const busqueda = this.maestro.materias_json.find((element: string)=>element===nombre);
+    if(this.maestro.materias_array){
+      const busqueda = this.maestro.materias_array.find((element: string)=>element===nombre);
       if(busqueda !== undefined){
         return true;
       }else{

@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SHARED_IMPORTS } from '../../shared/shared.imports';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { NotificationService } from '../../services/tools/notification-service';
+import { AlumnosService } from '../../services/alumnos-service';
 
 @Component({
   selector: 'app-registro-alumnos',
@@ -31,10 +33,16 @@ export class RegistroAlumnos implements OnInit {
 
   constructor(
     private location: Location,
-    private router: Router
+    private router: Router,
+    private alumnosService: AlumnosService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
+
+    this.alumno = this.alumnosService.esquemaAlumno();
+    // Asignamos el rol fijo para este formulario
+    this.alumno.rol = "alumno";
   }
 
   //Funciones para password
@@ -68,8 +76,42 @@ export class RegistroAlumnos implements OnInit {
 
   public registrar(){
 
-  }
+    // Inicializo el objeto de errores para evitar que se muestren errores anteriores o datos anteriores al momento de registrar un nuevo admin
+    this.errors = {};
+    console.log("Datos del alumno: ", this.alumno);
 
+    // Validar datos y mostrar errores
+    this.errors = this.alumnosService.validarAlumno(this.alumno, this.editar);
+    //Verificamos si el objeto de errores está vacío, lo que indica que no hay errores de validación
+    if(Object.keys(this.errors).length > 0){
+      return;
+    }
+
+    // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
+    if(this.alumno.password === this.alumno.confirmar_password){
+
+
+      // TODO: Aquí iría la lógica para registrar al alumno, como llamar a un servicio que se encargue de hacer la petición al backend
+      // Si no hay errores de validación, procedemos a registrar al admin
+      this.alumnosService.registrarAlumno(this.alumno).subscribe({
+        next: (response) => {
+          this.notificationService.success("Alumno registrado exitosamente");
+          console.log(response);
+          //Si se registra correctamente, redirigimos al login
+          this.router.navigate(['']);
+        },
+        error: (error) => {
+          console.error("Error al registrar Alumno: ", error);
+          this.notificationService.error("Error al registrar Alumno");
+        }
+      });
+      //
+    }else{
+      this.notificationService.error("Las contraseñas no coinciden");
+      this.alumno.password="";
+      this.alumno.confirmar_password="";
+    }
+  }
   public actualizar(){
 
   }

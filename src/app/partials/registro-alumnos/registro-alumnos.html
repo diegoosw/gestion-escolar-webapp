@@ -10,7 +10,7 @@
       <!-- Aquí empiezan los campos del formulario -->
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Matrícula</mat-label>
-        <input matInput [(ngModel)]="alumno.id_trabajador" name="id_alumno" placeholder="Escribe la matrícula del alumno">
+        <input matInput [(ngModel)]="alumno.matricula" name="id_alumno" placeholder="Escribe la matrícula del alumno">
       </mat-form-field>
       @if (errors.matricula) {
         <div class="invalid-feedback">{{ errors.matricula }}</div>

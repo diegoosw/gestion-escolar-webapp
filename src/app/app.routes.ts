@@ -10,6 +10,12 @@ export const routes: Routes = [
     path: 'registro-usuarios',
     loadComponent: () => import('./screens/registro-usuarios-screen/registro-usuarios-screen').then(m => m.RegistroUsuariosScreen),
   },
+  {
+    path: 'home',
+    loadComponent: () => import('./screens/home-screen/home-screen').then(m => m.HomeScreen),
+  },
 
   { path: '**', redirectTo: 'login' },
 ];
+
+

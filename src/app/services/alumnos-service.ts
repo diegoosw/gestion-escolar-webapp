@@ -118,7 +118,7 @@ export class AlumnosService {
     return error;
   }
 
-  //Creamos la petición POST para registrar al alumno, esta función se llamará en el método registrar() del componente registro-admin.ts
+  //Creamos la petición POST para registrar al alumno, esta función se llamará en el método registrar() del componente registro-alumnos.ts
   public registrarAlumno(data: any): Observable<any> {
     return this.http.post<any>(`${environment.url_api}/alumnos/`, data, { headers: this.getAuthHeaders() });
   }

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SHARED_IMPORTS } from '../../shared/shared.imports';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { NotificationService } from '../../services/tools/notification-service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlumnosService } from '../../services/alumnos-service';
+import { NotificationService } from '../../services/tools/notification-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-registro-alumnos',
@@ -13,15 +13,10 @@ import { AlumnosService } from '../../services/alumnos-service';
   templateUrl: './registro-alumnos.html',
   styleUrl: './registro-alumnos.scss',
 })
-export class RegistroAlumnos implements OnInit {
+export class RegistroAlumnos implements OnInit{
 
-  @Input() rol:string = "";
-  @Input() datos_user:any = {};
-
-  public alumno: any = {};
-  public errors: any = {};
-  public editar:boolean = false;
-  public idUser: number = 0;
+  @Input() rol: string = "";
+  @Input() datos_user: any = {};
 
   //Para contraseñas
   public hide_1: boolean = false;
@@ -29,24 +24,63 @@ export class RegistroAlumnos implements OnInit {
   public inputType_1: string = 'password';
   public inputType_2: string = 'password';
 
-  //Para el select
+  public alumno:any= {};
+  public errors:any={};
+  public editar:boolean = false;
+  public idUser: number = 0;
 
   constructor(
-    private location: Location,
+    private notificationService: NotificationService,
     private router: Router,
-    private alumnosService: AlumnosService,
-    private notificationService: NotificationService
-  ) { }
+    private location : Location,
+    private activatedRoute: ActivatedRoute,
+    private alumnosService: AlumnosService
+  ) {
+  }
 
-  ngOnInit() {
-
+  ngOnInit(): void {
     this.alumno = this.alumnosService.esquemaAlumno();
-    // Asignamos el rol fijo para este formulario
-    this.alumno.rol = "alumno";
+    // Rol del usuario
+    this.alumno.rol = this.rol;
+  }
+
+  public regresar(){
+    this.location.back();
+  }
+
+  public registrar(){
+    //Validamos si el formulario está lleno y correcto
+    this.errors = {};
+    this.errors = this.alumnosService.validarAlumno(this.alumno, this.editar);
+    if(Object.keys(this.errors).length > 0){
+      return;
+    }
+    // Lógica para registrar un nuevo alumno
+    if(this.alumno.password === this.alumno.confirmar_password){
+      this.alumnosService.registrarAlumno(this.alumno).subscribe(
+        (response) => {
+          // Redirigir o mostrar mensaje de éxito
+          this.notificationService.success("Alumno registrado exitosamente");
+          this.router.navigate(['/alumnos']);
+        },
+        (error) => {
+          // Manejar errores de la API
+          this.notificationService.error("Error al registrar alumno");
+        }
+      );
+    }else{
+      this.notificationService.error("Las contraseñas no coinciden");
+      this.alumno.password="";
+      this.alumno.confirmar_password="";
+    }
+  }
+
+  public actualizar(){
+    // Lógica para actualizar los datos de un alumno existente
   }
 
   //Funciones para password
-  public showPassword()
+  showPassword()
   {
     if(this.inputType_1 === 'password'){
       this.inputType_1 = 'text';
@@ -58,7 +92,7 @@ export class RegistroAlumnos implements OnInit {
     }
   }
 
-  public showPwdConfirmar()
+  showPwdConfirmar()
   {
     if(this.inputType_2 === 'password'){
       this.inputType_2 = 'text';
@@ -70,59 +104,21 @@ export class RegistroAlumnos implements OnInit {
     }
   }
 
-  public regresar(){
-    this.location.back();
-  }
-
-  public registrar(){
-
-    // Inicializo el objeto de errores para evitar que se muestren errores anteriores o datos anteriores al momento de registrar un nuevo admin
-    this.errors = {};
-    console.log("Datos del alumno: ", this.alumno);
-
-    // Validar datos y mostrar errores
-    this.errors = this.alumnosService.validarAlumno(this.alumno, this.editar);
-    //Verificamos si el objeto de errores está vacío, lo que indica que no hay errores de validación
-    if(Object.keys(this.errors).length > 0){
-      return;
-    }
-
-    // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
-    if(this.alumno.password === this.alumno.confirmar_password){
-
-
-      // TODO: Aquí iría la lógica para registrar al alumno, como llamar a un servicio que se encargue de hacer la petición al backend
-      // Si no hay errores de validación, procedemos a registrar al admin
-      this.alumnosService.registrarAlumno(this.alumno).subscribe({
-        next: (response) => {
-          this.notificationService.success("Alumno registrado exitosamente");
-          console.log(response);
-          //Si se registra correctamente, redirigimos al login
-          this.router.navigate(['']);
-        },
-        error: (error) => {
-          console.error("Error al registrar Alumno: ", error);
-          this.notificationService.error("Error al registrar Alumno");
-        }
-      });
-      //
-    }else{
-      this.notificationService.error("Las contraseñas no coinciden");
-      this.alumno.password="";
-      this.alumno.confirmar_password="";
-    }
-  }
-  public actualizar(){
-
-  }
-
   //Función para detectar el cambio de fecha
   public changeFecha(event :any){
     this.alumno.fecha_nacimiento = event.value.toISOString().split("T")[0];
   }
 
-
-
-
+  public soloLetras(event: KeyboardEvent) {
+    const charCode = event.key.charCodeAt(0);
+    // Permitir solo letras (mayúsculas y minúsculas) y espacio
+    if (
+      !(charCode >= 65 && charCode <= 90) &&  // Letras mayúsculas
+      !(charCode >= 97 && charCode <= 122) && // Letras minúsculas
+      charCode !== 32                         // Espacio
+    ) {
+      event.preventDefault();
+    }
+  }
 
 }

@@ -1,10 +1,10 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorsService } from './tools/errors-service';
 import { ValidatorService } from './tools/validator-service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthServices } from './auth-services';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { AuthServices } from './auth-services';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +12,15 @@ import { AuthServices } from './auth-services';
 export class AlumnosService {
 
   constructor(
+    private http: HttpClient,
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
-    private http: HttpClient,
-    private authServices: AuthServices
-    
-  ) {}
+    private authService: AuthServices
+  ) { }
 
   /** Genera los HttpHeaders con el token de sesión si existe */
   private getAuthHeaders(): HttpHeaders {
-    const token = this.authServices.getSessionToken();
+    const token = this.authService.getSessionToken();
     return token
       ? new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
       : new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -43,12 +42,11 @@ export class AlumnosService {
       'telefono': '',
       'ocupacion': '',
     }
-
   }
 
   //Validación para el formulario
   public validarAlumno(data: any, editar: boolean){
-    let error: any = {};
+    const error: any = {};
 
     if(!this.validatorService.required(data["matricula"])){
       error["matricula"] = this.errorService.required;
@@ -84,7 +82,6 @@ export class AlumnosService {
       error["fecha_nacimiento"] = this.errorService.required;
     }
 
-
     if(!this.validatorService.required(data["curp"])){
       error["curp"] = this.errorService.required;
     }else if(!this.validatorService.minLen(data["curp"], 18)){
@@ -101,11 +98,13 @@ export class AlumnosService {
       error["rfc"] = this.errorService.max;
     }
 
-
     if(!this.validatorService.required(data["edad"])){
       error["edad"] = this.errorService.required;
+    }else if(!this.validatorService.numeric(data["edad"])){
+      error["edad"] = "El formato es solo números";
+    }else if(data["edad"]<18){
+      error["edad"] = "La edad debe ser mayor o igual a 18";
     }
-    
 
     if(!this.validatorService.required(data["telefono"])){
       error["telefono"] = this.errorService.required;
@@ -115,11 +114,15 @@ export class AlumnosService {
       error["ocupacion"] = this.errorService.required;
     }
 
+    //Return arreglo
     return error;
   }
 
-  //Creamos la petición POST para registrar al alumno, esta función se llamará en el método registrar() del componente registro-alumnos.ts
   public registrarAlumno(data: any): Observable<any> {
     return this.http.post<any>(`${environment.url_api}/alumnos/`, data, { headers: this.getAuthHeaders() });
+  }
+
+  public obtenerListaAlumnos(): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/lista-alumnos/`, { headers: this.getAuthHeaders() });
   }
 }

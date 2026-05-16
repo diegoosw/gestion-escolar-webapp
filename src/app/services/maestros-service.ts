@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ErrorsService } from './tools/errors-service';
 import { ValidatorService } from './tools/validator-service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthServices } from './auth-services';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +15,12 @@ export class MaestrosService {
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
     private http: HttpClient,
-    private authServices: AuthServices
-    
+    private authService: AuthServices
   ) {}
 
   /** Genera los HttpHeaders con el token de sesión si existe */
   private getAuthHeaders(): HttpHeaders {
-    const token = this.authServices.getSessionToken();
+    const token = this.authService.getSessionToken();
     return token
       ? new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
       : new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -111,8 +110,13 @@ export class MaestrosService {
     return error;
   }
 
-  //Creamos la petición POST para registrar al administrador, esta función se llamará en el método registrar() del componente registro-admin.ts
+  //Función para registrar un maestro, conectando con el backend
   public registrarMaestro(data: any): Observable<any> {
     return this.http.post<any>(`${environment.url_api}/maestros/`, data, { headers: this.getAuthHeaders() });
+  }
+
+  //Función para obtener la lista de maestros registrados
+  public obtenerListaMaestros(): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/lista-maestros/`, { headers: this.getAuthHeaders() });
   }
 }

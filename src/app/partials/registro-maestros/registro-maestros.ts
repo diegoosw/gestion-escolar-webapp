@@ -18,7 +18,7 @@ export class RegistroMaestros implements OnInit {
   @Input() rol:string = "";
   @Input() datos_user:any = {};
 
-  public maestro: any = { materias_array: []};
+  public maestro: any = {};
   public errors: any = {};
   public editar:boolean = false;
   public idUser: number = 0;
@@ -59,10 +59,9 @@ export class RegistroMaestros implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Inicializamos el objeto con todos los campos necesarios vacíos
     this.maestro = this.maestrosService.esquemaMaestro();
-    // Asignamos el rol fijo para este formulario
-    this.maestro.rol = "maestro";
+    // Rol del usuario
+    this.maestro.rol = this.rol;
   }
 
   //Funciones para password
@@ -109,23 +108,17 @@ export class RegistroMaestros implements OnInit {
 
     // Validar si las contraseñas coinciden solo si no se está editando, ya que en la edición no es obligatorio cambiar la contraseña
     if(this.maestro.password === this.maestro.confirmar_password){
-
-
-      // TODO: Aquí iría la lógica para registrar al maestro, como llamar a un servicio que se encargue de hacer la petición al backend
-      // Si no hay errores de validación, procedemos a registrar al admin
+      //Lógica para registrar el maestro, conectando con el backend y mostrando notificaciones de éxito o error según corresponda
       this.maestrosService.registrarMaestro(this.maestro).subscribe({
         next: (response) => {
           this.notificationService.success("Maestro registrado exitosamente");
-          console.log(response);
-          //Si se registra correctamente, redirigimos al login
-          this.router.navigate(['']);
+          this.router.navigate(['/maestros']);
         },
         error: (error) => {
-          console.error("Error al registrar Maestro: ", error);
-          this.notificationService.error("Error al registrar Maestro");
+          console.error("Error al registrar el maestro: ", error);
+          this.notificationService.error("Error al registrar el maestro. Por favor, inténtalo de nuevo.");
         }
       });
-      //
     }else{
       this.notificationService.error("Las contraseñas no coinciden");
       this.maestro.password="";

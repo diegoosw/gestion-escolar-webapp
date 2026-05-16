@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
+import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -10,9 +12,30 @@ export const routes: Routes = [
     path: 'registro-usuarios',
     loadComponent: () => import('./screens/registro-usuarios-screen/registro-usuarios-screen').then(m => m.RegistroUsuariosScreen),
   },
+  
+
   {
-    path: 'home',
-    loadComponent: () => import('./screens/home-screen/home-screen').then(m => m.HomeScreen),
+    path: '',
+    component: DashboardLayout,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'home',
+        loadComponent: () => import('./screens/home-screen/home-screen').then(m => m.HomeScreen),
+      },
+      {
+        path: 'administrador',
+        loadComponent: () => import('./screens/admin-screen/admin-screen').then(m => m.AdminScreen),
+      },
+      {
+        path: 'alumnos',
+        loadComponent: () => import('./screens/alumnos-screen/alumnos-screen').then(m => m.AlumnosScreen),
+      },
+      {
+        path: 'maestros',
+        loadComponent: () => import('./screens/maestros-screen/maestros-screen').then(m => m.MaestrosScreen),
+      },
+    ]
   },
 
   { path: '**', redirectTo: 'login' },

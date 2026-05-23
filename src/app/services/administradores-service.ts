@@ -115,4 +115,28 @@ export class AdministradoresService {
     return this.http.get<any>(`${environment.url_api}/lista-admins/`, { headers: this.getAuthHeaders() });
   }
 
+  //Creamos la petición GET para obtener los datos de un administrador por su id, esta función se llamará en el método obtenerUsuarioPorId() del componente registro-usuarios-screen.ts
+  public obtenerAdminPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/admin/?id=${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  //Creamos la petición PUT para actualizar los datos de un administrador, esta función se llamará en el método actualizar() del componente registro-admin.ts
+  public actualizarAdmin(data: any): Observable<any> {
+    return this.http.put<any>(`${environment.url_api}/admin/`, data, { headers: this.getAuthHeaders() });
+  }
+
+  //Creamos la petición DELETE para eliminar un administrador, esta función se llamará en el método eliminar() dentro del modal eliminar-user-modal.ts
+  public eliminarAdmin(id: number): Observable<any> {
+    return this.http.delete<any>(`${environment.url_api}/admin/?id=${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  //Creamos la petición PATCH para cambiar el estatus del usuario a inactivo, esta función se llamará en el método eliminarUser() dentro del modal eliminar-user-modal.ts
+  public desactivarAdmin(id: number): Observable<any> {
+    return this.http.patch<any>(`${environment.url_api}/admin/?id=${id}`, { id }, { headers: this.getAuthHeaders() });
+  }
+
+  //Creamos la petición GET para obtener el total de usuarios registrados por cada rol, esta función se llamará en el método obtenerTotalUsers() del componente graficas-screen.ts
+  public getTotalUsuarios(): Observable<any> {
+    return this.http.get<any>(`${environment.url_api}/total-usuarios/`, { headers: this.getAuthHeaders() });
+  }
 }

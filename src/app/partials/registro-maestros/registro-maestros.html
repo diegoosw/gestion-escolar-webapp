@@ -34,7 +34,7 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Correo electrónico</mat-label>
-        <input matInput [(ngModel)]="maestro.email" name="email" placeholder="Escribe correo electrónico">
+        <input matInput [(ngModel)]="maestro.email" name="email" placeholder="Escribe correo electrónico" [disabled]="editar">
       </mat-form-field>
       @if (errors.email) {
         <div class="invalid-feedback">{{ errors.email }}</div>

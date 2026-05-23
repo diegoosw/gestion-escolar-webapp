@@ -39,9 +39,18 @@ export class RegistroAlumnos implements OnInit{
   }
 
   ngOnInit(): void {
-    this.alumno = this.alumnosService.esquemaAlumno();
-    // Rol del usuario
-    this.alumno.rol = this.rol;
+    //Primero validamos si existe un rol y un id, si es así, estamos en modo edición y cargamos los datos del usuario a editar
+    if(this.activatedRoute.snapshot.params['id'] !== undefined){
+      this.editar = true;
+      //Asignamos a nuestra variable global el valor del ID que viene por la URL
+      this.idUser = this.activatedRoute.snapshot.params['id'];
+      //Asignamos los datos del usuario que vienen desde la vista principal con el decorador
+      this.alumno = this.datos_user;
+    }else{
+      // Si no va a editar, entonces inicializamos el JSON para registro nuevo
+      this.alumno = this.alumnosService.esquemaAlumno();
+      this.alumno.rol = this.rol;
+    }
   }
 
   public regresar(){
@@ -76,7 +85,28 @@ export class RegistroAlumnos implements OnInit{
   }
 
   public actualizar(){
-    // Lógica para actualizar los datos de un alumno existente
+    console.log("Datos del alumno a actualizar: ", this.alumno);
+    // Validación de los datos
+    this.errors = {};
+    this.errors = this.alumnosService.validarAlumno(this.alumno, this.editar);
+    
+    if(Object.keys(this.errors).length > 0){
+      return;
+    }
+    
+    // Llamamos a la función para actualizar al alumno, esta función se encuentra en el servicio de alumnos
+    this.alumnosService.actualizarAlumno(this.alumno).subscribe({
+      next: (response) => {
+        this.notificationService.success("Alumno actualizado exitosamente");
+        console.log(response);
+        //Si se actualiza correctamente, redirigimos al login
+        this.router.navigate(['/alumnos']);
+      },
+      error: (error) => {
+        console.error("Error al actualizar alumno: ", error);
+        this.notificationService.error("Error al actualizar alumno");
+      }
+    });
   }
 
   //Funciones para password

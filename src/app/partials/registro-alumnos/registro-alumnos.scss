@@ -157,3 +157,8 @@ mat-form-field{
 .invalid-feedback, .feedback-error {
   margin-left: 2.5rem;
 }
+
+// Ajuste para el margen del input 
+::ng-deep .mat-mdc-form-field.mat-form-field-animations-enabled .mdc-text-field__input {
+  margin-left: 0.5rem;
+}

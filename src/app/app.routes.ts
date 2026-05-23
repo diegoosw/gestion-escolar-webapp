@@ -1,16 +1,27 @@
 import { Routes } from '@angular/router';
 import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
 import { AuthGuard } from './guard/auth.guard';
+import { AuthLayout } from './layouts/auth-layout/auth-layout';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: 'login',
-    loadComponent: () => import('./screens/login-screen/login-screen').then(m => m.LoginScreen),
-  },
-  {
-    path: 'registro-usuarios',
-    loadComponent: () => import('./screens/registro-usuarios-screen/registro-usuarios-screen').then(m => m.RegistroUsuariosScreen),
+    path: '',
+    component: AuthLayout,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      {
+        path: 'login',
+        loadComponent: () => import('./screens/login-screen/login-screen').then(m => m.LoginScreen),
+      },
+      {
+        path: 'registro-usuarios',
+        loadComponent: () => import('./screens/registro-usuarios-screen/registro-usuarios-screen').then(m => m.RegistroUsuariosScreen),
+      },
+      {
+        path: 'registro-usuarios/:rol/:id',
+        loadComponent: () => import('./screens/registro-usuarios-screen/registro-usuarios-screen').then(m => m.RegistroUsuariosScreen),
+      },
+    ]
   },
   
 
@@ -35,6 +46,10 @@ export const routes: Routes = [
         path: 'maestros',
         loadComponent: () => import('./screens/maestros-screen/maestros-screen').then(m => m.MaestrosScreen),
       },
+      {
+        path: 'graficas',
+        loadComponent: () => import('./screens/graficas-screen/graficas-screen').then(m => m.GraficasScreen),
+      }
     ]
   },
 

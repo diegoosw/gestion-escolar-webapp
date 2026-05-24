@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SHARED_IMPORTS } from '../../shared/shared.imports';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MaestrosService } from '../../services/maestros-service';
 import { NotificationService } from '../../services/tools/notification-service';
@@ -55,13 +55,23 @@ export class RegistroMaestros implements OnInit {
     private location: Location,
     private router: Router,
     private maestrosService: MaestrosService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.maestro = this.maestrosService.esquemaMaestro();
-    // Rol del usuario
-    this.maestro.rol = this.rol;
+    //Primero validamos si existe un rol y un id, si es así, estamos en modo edición y cargamos los datos del usuario a editar
+    if(this.activatedRoute.snapshot.params['id'] !== undefined){
+      this.editar = true;
+      //Asignamos a nuestra variable global el valor del ID que viene por la URL
+      this.idUser = this.activatedRoute.snapshot.params['id'];
+      //Asignamos los datos del usuario que vienen desde la vista principal con el decorador
+      this.maestro = this.datos_user;
+    }else{
+      // Si no va a editar, entonces inicializamos el JSON para registro nuevo
+      this.maestro = this.maestrosService.esquemaMaestro();
+      this.maestro.rol = this.rol;
+    }
   }
 
   //Funciones para password
@@ -128,7 +138,28 @@ export class RegistroMaestros implements OnInit {
   }
 
   public actualizar(){
-
+    console.log("Datos del maestro a actualizar: ", this.maestro);
+    // Validación de los datos
+    this.errors = {};
+    this.errors = this.maestrosService.validarMaestro(this.maestro, this.editar);
+    
+    if(Object.keys(this.errors).length > 0){
+      return;
+    }
+    
+    // Llamamos a la función para actualizar al maestro, esta función se encuentra en el servicio de maestros
+    this.maestrosService.actualizarMaestro(this.maestro).subscribe({
+      next: (response) => {
+        this.notificationService.success("Maestro actualizado exitosamente");
+        console.log(response);
+        //Si se actualiza correctamente, redirigimos al login
+        this.router.navigate(['/maestros']);
+      },
+      error: (error) => {
+        console.error("Error al actualizar maestro: ", error);
+        this.notificationService.error("Error al actualizar maestro");
+      }
+    });
   }
 
   //Función para detectar el cambio de fecha

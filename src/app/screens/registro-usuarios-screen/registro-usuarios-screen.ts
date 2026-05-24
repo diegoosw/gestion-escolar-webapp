@@ -112,17 +112,31 @@ export class RegistroUsuariosScreen implements OnInit {
           console.log(error);
         }
       });
-    }else if(this.rol === "maestro"){
+    } else if(this.rol === "maestro"){
       //Lógica para obtener un maestro por su ID
       this.maestrosService.obtenerMaestroPorId(this.idUser).subscribe({
         next: (response) => {
           this.user = response;
-          //Verificar que se hayan obtenido los datos correctamente
           console.log("Datos del maestro encontrado: ", this.user);
+          
+          // Convertir el string de materias a un arreglo real --->
+          if (typeof this.user.materias_array === 'string') {
+            try {
+              this.user.materias_array = JSON.parse(this.user.materias_array);
+            } catch (e) {
+              // Si por alguna razón el texto no tiene formato JSON válido, asignamos un arreglo vacío
+              this.user.materias_array = []; 
+            }
+          } else if (!this.user.materias_array) {
+             // Si viene nulo o indefinido
+            this.user.materias_array = [];
+          }
+
           // Asignar datos, soportando respuesta plana o anidada
           this.user.first_name = response.user?.first_name || response.first_name;
           this.user.last_name = response.user?.last_name || response.last_name;
           this.user.email = response.user?.email || response.email;
+          
           // Establecer el tipo de usuario para mostrar el formulario correspondiente
           this.user.tipo_usuario = this.rol;
           // Activar el formulario de maestro

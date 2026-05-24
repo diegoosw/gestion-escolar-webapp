@@ -102,7 +102,7 @@ export class AlumnosScreen implements OnInit, AfterViewInit{
     if (this.rol === 'administrador' || (this.rol === 'alumno' && idUserSession === idUser)) {
       
       this.router.navigate(['/registro-usuarios', 'alumno', idUser]);
-    } else if (this.rol === 'alumno') {
+    } else if (this.rol === 'alumno' || this.rol === 'maestro') {
       this.notificationService.error("No tienes permiso para editar a este alumno.");
     }
     

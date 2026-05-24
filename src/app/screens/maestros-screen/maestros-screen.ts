@@ -93,7 +93,16 @@ export class MaestrosScreen implements OnInit, AfterViewInit {
   }
 
   public goEditar(idUser: number) {
-    this.router.navigate(['/registro-usuarios', 'maestro', idUser]);
+
+    const idUserSession = Number(this.authService.getUserId());
+    // Si es administrador o el mismo maestro, puede editar
+    if (this.rol === 'administrador' || (this.rol === 'maestro' && idUserSession === idUser)) {
+      
+      this.router.navigate(['/registro-usuarios', 'maestro', idUser]);
+    } else if (this.rol === 'maestro') {
+      this.notificationService.error("No tienes permiso para editar a este maestro.");
+    }
+    
   }
 
   public delete(idUser: number) {

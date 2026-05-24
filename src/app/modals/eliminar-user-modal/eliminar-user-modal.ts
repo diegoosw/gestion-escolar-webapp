@@ -62,7 +62,17 @@ export class EliminarUserModal implements OnInit{
 
     }else if(this.rol === 'alumno'){
       // Lógica para eliminar alumno usando delete
-      //TODO: Implementar lógica para eliminar alumno usando delete
+      this.alumnosService.eliminarAlumno(this.data.id).subscribe({
+        next: (response) => {
+          console.log('Alumno eliminado:', response);
+          this.notificationService.success('Alumno eliminado exitosamente');
+          this.dialogRef.close({isDelete:true});
+        },
+        error: (error) => {
+          console.error('Error al eliminar alumno:', error);
+          this.notificationService.error('Error al eliminar alumno');
+        }
+      });
 
     }
   }

@@ -31,6 +31,13 @@ export class RegistroAdmin implements OnInit {
   public inputType_1: string = 'password';
   public inputType_2: string = 'password';
 
+  //Para el select
+  public categorias: any[] = [
+    {value: '1', viewValue: 'Tiempo Completo'},
+    {value: '2', viewValue: 'Medio Tiempo'},
+    {value: '3', viewValue: 'Hora-Clase'},
+  ];
+
   constructor(
     private location: Location,
     private router: Router,

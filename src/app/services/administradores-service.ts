@@ -38,7 +38,9 @@ export class AdministradoresService {
       'telefono': '',
       'rfc': '',
       'edad': '',
-      'ocupacion': ''
+      'ocupacion': '',
+      'categoria': '',
+      'grado_academico': ''
     }
   }
 
@@ -99,6 +101,14 @@ export class AdministradoresService {
 
     if(!this.validatorService.required(data["ocupacion"])){
       error["ocupacion"] = this.errorService.required;
+    }
+
+    if(!this.validatorService.required(data["categoria"])){
+      error["categoria"] = this.errorService.required;
+    }
+
+    if(!this.validatorService.required(data["grado_academico"])){
+      error["grado_academico"] = this.errorService.required;
     }
 
     //Return arreglo

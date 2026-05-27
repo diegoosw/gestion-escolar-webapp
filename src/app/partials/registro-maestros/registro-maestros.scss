@@ -235,6 +235,33 @@ mat-form-field {
 
 }
 
+
+
+/* =========================
+   Ajustes adicionales para el radio button
+   ========================= */
+
+::ng-deep .mat-mdc-radio-button .mdc-form-field {
+  color: #231F20;
+  font-family: Nexa;
+  font-size: 20px;
+}
+
+::ng-deep .mat-mdc-radio-button.mat-accent {
+  --mdc-radio-selected-focus-icon-color: #0092B8;
+  --mdc-radio-selected-hover-icon-color: #0092B8;
+  --mdc-radio-selected-icon-color: #0092B8;
+  --mdc-radio-selected-pressed-icon-color: #0092B8;
+  --mat-radio-ripple-color: #000;
+  --mat-radio-checked-ripple-color: #0092B8;
+}
+
+.mat-radio-button {
+    font-size: 1rem;
+  }
+
+  /*Cosas adicionales*/
+
 .invalid-feedback, .feedback-error {
   margin-left: 2.5rem;
 }
@@ -242,3 +269,22 @@ mat-form-field {
 ::ng-deep div.mat-mdc-select-panel {
   background-color: #fff !important; /* Fondo blanco para el panel de selección */
 }
+
+.select-campus {
+  width: 100%;
+  padding-left: 2.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+p, span, label, input, button {
+  margin-left: 7px;
+}
+
+::ng-deep .mat-datepicker-content .mat-calendar {
+  background-color: #fff;
+}
+

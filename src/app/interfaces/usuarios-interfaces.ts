@@ -14,6 +14,8 @@ export interface DatosMaestro {
   rfc: string;
   cubiculo: string;
   area_investigacion: number;
+  sueldo_estimado: number;
+  campus: string;
 }
 
 //TODO: Crear interfaces para alumno y administrador
@@ -30,3 +32,4 @@ export interface DatosAlumno {
   edad: number;
   ocupacion: number;
 }
+

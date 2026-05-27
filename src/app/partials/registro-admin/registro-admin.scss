@@ -160,3 +160,10 @@ mat-form-field{
 .invalid-feedback, .feedback-error {
   margin-left: 2.5rem;
 }
+
+/*Ajustes adicionales*/
+
+::ng-deep .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
+  background-color: #fff;
+}
+

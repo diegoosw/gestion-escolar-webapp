@@ -38,6 +38,12 @@ export class RegistroMaestros implements OnInit {
     {value: '5', viewValue: 'Matemáticas'},
   ];
 
+  //Para el radio-button de campus
+  public campus: any[] = [
+    {value: 'cu', viewValue: 'CU San Manuel'},
+    {value: 'cu2', viewValue: 'CU2'},
+  ];
+
   public materias:any[] = [
     {value: '1', nombre: 'Aplicaciones Web'},
     {value: '2', nombre: 'Programación 1'},

@@ -108,6 +108,29 @@
       @if (errors.area_investigacion) {
         <div class="invalid-feedback">{{ errors.area_investigacion }}</div>
       }
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Sueldo Estimado</mat-label>
+        <span matTextPrefix>$ &nbsp;</span>
+        <input matInput maxlength="10" [(ngModel)]="maestro.sueldo_estimado" name="sueldo_estimado" placeholder="Escribe sueldo estimado del maestro" mask="separator.2" thousandSeparator="," decimalMarker=".">
+      </mat-form-field>
+      @if (errors.sueldo_estimado) {
+        <div class="invalid-feedback">{{ errors.sueldo_estimado }}</div>
+      }
+
+      <div class="form-group mb-3 mt-2 select-campus">
+        <label class="form-label text-muted" style="font-size: 12px; font-weight: 400;">Campus</label>
+        <div class="d-block">
+            <mat-radio-group [(ngModel)]="maestro.campus">
+              <mat-radio-button class="role-pill mr-3" value="CU">CU San Manuel</mat-radio-button>
+              <mat-radio-button class="role-pill" value="CU2">CU2</mat-radio-button>
+            </mat-radio-group>
+        </div>
+      </div>
+      @if (errors.campus) {
+        <div class="invalid-feedback">{{ errors.campus }}</div>
+      }
+      
 
       <!-- Sección de los checkbox para seleccionar las materias que imparte el maestro -->
       <div class="select-materias">

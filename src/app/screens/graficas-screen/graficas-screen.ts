@@ -112,6 +112,26 @@ export class GraficasScreen implements OnInit{
         this.total_user = response;
         console.log("Total de usuarios: ", this.total_user);
 
+        const datosTablas = [
+          response.total_admins,
+          response.total_maestros,
+          response.total_alumnos
+        ];
+
+        // Inyectamos los datos en la gráfica de Líneas (Histograma)
+        this.lineChartData.datasets[0].data = datosTablas;
+        // Refrescamos el objeto para que Angular y Chart.js detecten el cambio
+        this.lineChartData = { ...this.lineChartData };
+
+        // Inyectamos los datos en la gráfica de Pastel (Pie)
+        this.pieChartData.datasets[0].data = datosTablas;
+        this.pieChartData = { ...this.pieChartData };
+
+        // Inyectamos los datos en la gráfica de Dona (Doughnut)
+        this.doughnutChartData.datasets[0].data = datosTablas;
+        this.doughnutChartData = { ...this.doughnutChartData };
+        // A la gráfica de barras no se le inyectan los datos porque es para mostrar el número de eventos académicos registrados, de momento es estático
+
         this.notificationService.success("Total de usuarios registrados por cada rol obtenido correctamente");
       }, (error)=>{
         this.notificationService.error("No se pudo obtener el total de cada rol de usuarios");

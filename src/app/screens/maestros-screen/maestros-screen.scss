@@ -426,4 +426,18 @@ table {
   }
 }
 
+/* ===============================================================
+   Ajustes visuales para el Paginador (Select de elementos)
+   =============================================================== */
+::ng-deep .mat-mdc-paginator-page-size-select .mat-mdc-select-value {
+  padding-left: 10px !important; /* Ajusta este número si lo quieres más a la derecha */
+}
 
+/* Opcional: Si también quieres separar un poco el número de la flechita de la derecha */
+::ng-deep .mat-mdc-paginator-page-size-select .mat-mdc-select-trigger {
+  padding-right: 4px; 
+}
+
+::ng-deep .mat-mdc-select-panel-above div.mat-mdc-select-panel {
+  background-color: white;
+}

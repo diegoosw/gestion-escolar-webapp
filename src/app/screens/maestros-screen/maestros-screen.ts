@@ -30,8 +30,8 @@ export class MaestrosScreen implements OnInit, AfterViewInit {
     'id_trabajador',
     'nombre',
     'email',
-    'fecha_nacimiento',
-    'telefono',
+    /* 'fecha_nacimiento', */
+    /* 'telefono', */
     'rfc',
     'cubiculo',
     'area_investigacion',

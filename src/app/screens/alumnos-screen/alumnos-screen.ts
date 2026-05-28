@@ -35,10 +35,12 @@ export class AlumnosScreen implements OnInit, AfterViewInit{
     'email',
     'fecha_nacimiento',
     'telefono',
-    'curp',
-    'rfc',
+    /* 'curp', */
+    /* 'rfc', */
     'edad',
     'ocupacion',
+    'direccion',
+    'sexo',
     'editar',
     'eliminar'
   ];

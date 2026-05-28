@@ -29,6 +29,13 @@ export class RegistroAlumnos implements OnInit{
   public editar:boolean = false;
   public idUser: number = 0;
 
+  //Para el select
+  public sexos: any[] = [
+    {value: '1', viewValue: 'Masculino'},
+    {value: '2', viewValue: 'Femenino'},
+    {value: '3', viewValue: 'Prefiero no decirlo'},
+  ];
+
   constructor(
     private notificationService: NotificationService,
     private router: Router,

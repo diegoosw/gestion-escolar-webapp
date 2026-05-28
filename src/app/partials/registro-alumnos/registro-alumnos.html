@@ -114,6 +114,28 @@
         <div class="invalid-feedback">{{ errors.ocupacion }}</div>
       }
 
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input matInput [(ngModel)]="alumno.direccion" placeholder="Escribe dirección" (keypress)="soloLetras($event)">
+      </mat-form-field>
+      @if (errors.direccion) {
+        <div class="invalid-feedback">{{ errors.direccion }}</div>
+      }
+
+      <mat-form-field class="mat-input" appearance="outline">
+        <mat-label>Sexo</mat-label>
+        <mat-select [(ngModel)]="alumno.sexo">
+          @for (sexo of sexos; track $index) {
+            <mat-option [value]="sexo.viewValue">
+              {{sexo.viewValue}}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      @if (errors.sexo) {
+        <div class="invalid-feedback">{{ errors.sexo }}</div>
+      }
+
       <div class="section-buttons">
         <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
         @if (!editar) {

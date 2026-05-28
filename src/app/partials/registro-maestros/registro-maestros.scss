@@ -277,14 +277,35 @@ mat-form-field {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 0.5rem;
+  
+  /* 1. Juntar el label "Campus" con las opciones */
+  gap: 0 !important; 
+  
+  /* 2. Anular el mt-2 y mb-3 de Bootstrap para que no estorbe */
+  margin-top: 0 !important;      
+  margin-bottom: 15px !important; 
 }
 
-p, span, label, input, button {
+/* 3. Reducir la altura "invisible" de los botones de Material */
+::ng-deep .mat-mdc-radio-button.role-pill {
+  margin-right: 15px !important; /* Este es el que pusimos para juntarlos horizontalmente */
+  height: 32px !important;       /* Reduce el bloque del botón */
+}
+
+::ng-deep .mat-mdc-radio-button.role-pill .mdc-form-field {
+  height: 32px !important;       /* Ajusta el texto a la nueva altura */
+}
+
+span[matTextPrefix] {
   margin-left: 7px;
 }
 
+
 ::ng-deep .mat-datepicker-content .mat-calendar {
-  background-color: #fff;
+  background-color: #fff;//color del calendario
+}
+
+::ng-deep .mat-mdc-select-arrow svg {
+  padding-right: 5px;// Ajusta el espacio a la derecha del ícono de flecha
 }
 

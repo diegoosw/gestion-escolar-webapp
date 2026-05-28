@@ -167,3 +167,7 @@ mat-form-field{
   background-color: #fff;
 }
 
+::ng-deep .mat-mdc-select-arrow svg {
+  padding-right: 5px;// Ajusta el espacio a la derecha del ícono de flecha
+}
+

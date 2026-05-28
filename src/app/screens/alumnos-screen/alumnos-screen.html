@@ -67,20 +67,20 @@
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>Teléfono</th>
                   <td mat-cell *matCellDef="let element">{{ element.telefono }}</td>
                 </ng-container>
-
+                
                 <!-- 6ta columna -->
-                <ng-container matColumnDef="curp">
+                <!-- <ng-container matColumnDef="curp">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>CURP</th>
                   <td mat-cell *matCellDef="let element">{{ element.curp }}</td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- 7ma columna -->
 
-                <ng-container matColumnDef="rfc">
+                <!-- <ng-container matColumnDef="rfc">
                   <th mat-header-cell mat-sort-header *matHeaderCellDef>RFC</th>
                   <td mat-cell *matCellDef="let element">{{ element.rfc }}</td>
-                </ng-container>
-
+                </ng-container> -->
+                
                 <!-- 8va columna -->
                 <ng-container matColumnDef="edad">
                   <th mat-header-cell *matHeaderCellDef>Edad</th>
@@ -93,7 +93,19 @@
                   <td mat-cell *matCellDef="let element">{{ element.ocupacion }}</td>
                 </ng-container>
 
-                <!-- 12a columna - Editar -->
+                <!-- 12a columna -->
+                <ng-container matColumnDef="direccion">
+                  <th mat-header-cell *matHeaderCellDef>Dirección</th>
+                  <td mat-cell *matCellDef="let element">{{ element.direccion }}</td>
+                </ng-container>
+
+                <!-- 13a columna -->
+                <ng-container matColumnDef="sexo">
+                  <th mat-header-cell *matHeaderCellDef>Sexo</th>
+                  <td mat-cell *matCellDef="let element">{{ element.sexo }}</td>
+                </ng-container>
+
+                <!-- 14a columna - Editar -->
                 <ng-container matColumnDef="editar">
                   <th mat-header-cell *matHeaderCellDef class="th-accion">Actualizar</th>
                   <td mat-cell *matCellDef="let element" class="td-editar">
@@ -101,7 +113,7 @@
                   </td>
                 </ng-container>
 
-                <!-- 12a columna - Eliminar -->
+                <!-- 15a columna - Eliminar -->
                 <ng-container matColumnDef="eliminar">
                   <th mat-header-cell *matHeaderCellDef class="th-accion">Eliminar</th>
                   <td mat-cell *matCellDef="let element" class="td-eliminar">

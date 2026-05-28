@@ -166,3 +166,15 @@ mat-form-field{
 ::ng-deep .mat-datepicker-content .mat-calendar {
   background-color: #fff;
 }
+
+::ng-deep div.mat-mdc-select-panel {
+  background-color: #fff !important; /* Fondo blanco para el panel de selección */
+}
+
+::ng-deep .mat-mdc-select-arrow svg {
+  padding-right: 5px;// Ajusta el espacio a la derecha del ícono de flecha
+}
+
+::ng-deep .mat-mdc-select-value {
+  padding-left: 0.5rem; /* Ajusta el espacio a la izquierda del valor seleccionado */
+}

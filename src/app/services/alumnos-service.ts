@@ -41,6 +41,8 @@ export class AlumnosService {
       'edad': '',
       'telefono': '',
       'ocupacion': '',
+      'direccion': '',
+      'sexo': '',
     }
   }
 
@@ -112,6 +114,14 @@ export class AlumnosService {
 
     if(!this.validatorService.required(data["ocupacion"])){
       error["ocupacion"] = this.errorService.required;
+    }
+
+    if(!this.validatorService.required(data["direccion"])){
+      error["direccion"] = this.errorService.required;
+    }
+
+    if(!this.validatorService.required(data["sexo"])){
+      error["sexo"] = this.errorService.required;
     }
 
     //Return arreglo
